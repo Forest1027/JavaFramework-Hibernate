@@ -13,6 +13,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.NamedQuery;
 
 @Entity
@@ -27,6 +31,17 @@ public class Customer {
 	
 	@OneToMany(targetEntity=Order.class,mappedBy="customer",orphanRemoval=true)
 	@Cascade(CascadeType.ALL)
+	//研究一对多set上lazy的配置，默认fetch=select
+	//1. @LazyCollection(LazyCollectionOption.FALSE) 场景下
+	//@Fetch(FetchMode.SELECT)
+	//@LazyCollection(LazyCollectionOption.FALSE)
+	//2. @LazyCollection(LazyCollectionOption.TRUE) 场景下 
+	//@LazyCollection(LazyCollectionOption.TRUE)
+	//3. @LazyCollection(LazyCollectionOption.EXTRA) 场景下
+	//@LazyCollection(LazyCollectionOption.EXTRA)
+	//1.@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SUBSELECT)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private Set<Order> orders = new HashSet<>();
 
 	public Customer() {
