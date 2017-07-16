@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.forest.domain.Customer" table="t_customer"
+		catalog="test">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name" length="20"></property>
+		
+		<set name="orders" cascade="save-update" inverse="true">
+			<key column="c_customer_id" /><!-- 写多方的外键 -->
+			<one-to-many class="com.forest.domain.Order" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ <!--    private Integer id;
+	private Double money;
+	private String receiverInfo;
+	private Customer c; -->
+<hibernate-mapping>
+	<class name="com.forest.domain.Order" table="t_order">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="money" length="20"></property>
+		<property name="receiverInfo" length="50"></property>
+		<many-to-one name="c" class="com.forest.domain.Customer" column="c_customer_id" cascade="save-update"></many-to-one>
+	</class>
+</hibernate-mapping>
